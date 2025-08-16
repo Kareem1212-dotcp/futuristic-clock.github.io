@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Futuristic Digital Clock</title>
+    <meta name="description" content="A futuristic digital clock with countdown timers, multiple timezones, and stunning visual effects">
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <!-- Background Particles -->
+        <div class="particles" id="particles"></div>
+        
+        <!-- Theme Toggle -->
+        <button class="theme-toggle" id="themeToggle" data-testid="button-theme-toggle">
+            <span class="theme-icon">🌙</span>
+        </button>
+
+        <!-- Sound Toggle -->
+        <button class="sound-toggle" id="soundToggle" data-testid="button-sound-toggle">
+            <span class="sound-icon">🔊</span>
+        </button>
+
+        <!-- Main Clock Section -->
+        <div class="clock-section">
+            <h1 class="title" data-testid="text-main-title">FUTURISTIC CLOCK</h1>
+            
+            <!-- Format Toggle -->
+            <div class="format-toggle">
+                <button class="format-btn active" id="format12" data-testid="button-format-12">12H</button>
+                <button class="format-btn" id="format24" data-testid="button-format-24">24H</button>
+            </div>
+
+            <!-- Main Clock Display -->
+            <div class="main-clock" id="mainClock" data-testid="display-main-clock">
+                <div class="time-display">
+                    <span class="time-part hours" id="hours" data-testid="text-hours">12</span>
+                    <span class="colon blink" data-testid="text-colon-1">:</span>
+                    <span class="time-part minutes" id="minutes" data-testid="text-minutes">00</span>
+                    <span class="colon blink" data-testid="text-colon-2">:</span>
+                    <span class="time-part seconds" id="seconds" data-testid="text-seconds">00</span>
+                    <span class="ampm" id="ampm" data-testid="text-ampm">AM</span>
+                </div>
+                <div class="date-display" id="dateDisplay" data-testid="text-date">Monday, January 1, 2024</div>
+            </div>
+
+            <!-- Progress Rings -->
+            <div class="progress-rings">
+                <div class="progress-ring">
+                    <svg class="progress-svg">
+                        <circle class="progress-bg" cx="60" cy="60" r="50"></circle>
+                        <circle class="progress-fill hours-progress" cx="60" cy="60" r="50" id="hoursProgress"></circle>
+                    </svg>
+                    <span class="progress-label" data-testid="text-hours-label">HOURS</span>
+                </div>
+                <div class="progress-ring">
+                    <svg class="progress-svg">
+                        <circle class="progress-bg" cx="60" cy="60" r="50"></circle>
+                        <circle class="progress-fill minutes-progress" cx="60" cy="60" r="50" id="minutesProgress"></circle>
+                    </svg>
+                    <span class="progress-label" data-testid="text-minutes-label">MINUTES</span>
+                </div>
+                <div class="progress-ring">
+                    <svg class="progress-svg">
+                        <circle class="progress-bg" cx="60" cy="60" r="50"></circle>
+                        <circle class="progress-fill seconds-progress" cx="60" cy="60" r="50" id="secondsProgress"></circle>
+                    </svg>
+                    <span class="progress-label" data-testid="text-seconds-label">SECONDS</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- World Clocks Section -->
+        <div class="world-clocks">
+            <h2 class="section-title" data-testid="text-world-clocks-title">WORLD CLOCKS</h2>
+            <div class="world-clock-grid">
+                <div class="world-clock" data-testid="display-world-clock-nyc">
+                    <div class="city-name" data-testid="text-city-nyc">NEW YORK</div>
+                    <div class="world-time" id="nycTime" data-testid="text-time-nyc">--:--:--</div>
+                </div>
+                <div class="world-clock" data-testid="display-world-clock-london">
+                    <div class="city-name" data-testid="text-city-london">LONDON</div>
+                    <div class="world-time" id="londonTime" data-testid="text-time-london">--:--:--</div>
+                </div>
+                <div class="world-clock" data-testid="display-world-clock-tokyo">
+                    <div class="city-name" data-testid="text-city-tokyo">TOKYO</div>
+                    <div class="world-time" id="tokyoTime" data-testid="text-time-tokyo">--:--:--</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Countdown Timer Section -->
+        <div class="countdown-section">
+            <h2 class="section-title" data-testid="text-countdown-title">COUNTDOWN TIMER</h2>
+            
+            <!-- Timer Input -->
+            <div class="timer-input">
+                <div class="input-group">
+                    <input type="number" id="countdownHours" min="0" max="23" value="0" data-testid="input-countdown-hours">
+                    <label data-testid="text-hours-input-label">HOURS</label>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="countdownMinutes" min="0" max="59" value="5" data-testid="input-countdown-minutes">
+                    <label data-testid="text-minutes-input-label">MINUTES</label>
+                </div>
+                <div class="input-group">
+                    <input type="number" id="countdownSeconds" min="0" max="59" value="0" data-testid="input-countdown-seconds">
+                    <label data-testid="text-seconds-input-label">SECONDS</label>
+                </div>
+            </div>
+
+            <!-- Timer Controls -->
+            <div class="timer-controls">
+                <button class="control-btn start" id="startTimer" data-testid="button-start-timer">START</button>
+                <button class="control-btn pause" id="pauseTimer" disabled data-testid="button-pause-timer">PAUSE</button>
+                <button class="control-btn reset" id="resetTimer" data-testid="button-reset-timer">RESET</button>
+            </div>
+
+            <!-- Timer Display -->
+            <div class="timer-display" id="timerDisplay" data-testid="display-countdown-timer">
+                <div class="countdown-time">
+                    <span class="countdown-part" id="countdownDisplayHours" data-testid="text-countdown-hours">00</span>
+                    <span class="colon">:</span>
+                    <span class="countdown-part" id="countdownDisplayMinutes" data-testid="text-countdown-minutes">05</span>
+                    <span class="colon">:</span>
+                    <span class="countdown-part" id="countdownDisplaySeconds" data-testid="text-countdown-seconds">00</span>
+                </div>
+                
+                <!-- Countdown Progress Ring -->
+                <div class="countdown-progress">
+                    <svg class="countdown-svg">
+                        <circle class="countdown-bg" cx="150" cy="150" r="120"></circle>
+                        <circle class="countdown-fill" cx="150" cy="150" r="120" id="countdownProgress"></circle>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pomodoro Timer Section -->
+        <div class="pomodoro-section">
+            <h2 class="section-title" data-testid="text-pomodoro-title">POMODORO TIMER</h2>
+            
+            <div class="pomodoro-controls">
+                <button class="pomodoro-btn work active" id="workMode" data-testid="button-work-mode">WORK (25min)</button>
+                <button class="pomodoro-btn break" id="breakMode" data-testid="button-break-mode">BREAK (5min)</button>
+                <button class="pomodoro-btn start-pomodoro" id="startPomodoro" data-testid="button-start-pomodoro">START</button>
+            </div>
+
+            <div class="pomodoro-display" id="pomodoroDisplay" data-testid="display-pomodoro">
+                <div class="pomodoro-time">
+                    <span class="pomodoro-minutes" id="pomodoroMinutes" data-testid="text-pomodoro-minutes">25</span>
+                    <span class="colon">:</span>
+                    <span class="pomodoro-seconds" id="pomodoroSeconds" data-testid="text-pomodoro-seconds">00</span>
+                </div>
+                <div class="pomodoro-status" id="pomodoroStatus" data-testid="text-pomodoro-status">READY TO WORK</div>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
